@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: ci-cd-pipeline-run
+spec:
+  pipelineRef:
+    name: ci-cd-pipeline
+  params:
+    - name: repo-url
+      value: https://github.com/anshuldikshit81/ci-cd-final-project.git
+    - name: app-name
+      value: ci-cd-final-project
+    - name: build-image
+      value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ci-cd-final-project
+  workspaces:
+    - name: output
+      emptyDir: {}
